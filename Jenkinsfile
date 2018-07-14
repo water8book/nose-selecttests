@@ -62,4 +62,11 @@ pipeline {
         }
 
     }
+    post {
+        always {
+            script {
+                sh "docker rmi ${env.docker_image_name}"
+            }
+        }
+    }
 }
