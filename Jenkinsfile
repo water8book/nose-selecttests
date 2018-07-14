@@ -37,19 +37,20 @@ pipeline {
         stage('ユニットテスト') {
             steps {
                 script {
-                    dir('.') {
-                        sh 'nosetests -v --with-xunit --with-coverage --cover-inclusive --cover-branches --cover-xml -w test || true'
+                    dir('functional_tests') {
+                        sh 'nosetests -v --with-xunit --with-coverage --cover-tests  --cover-inclusive --cover-branches --cover-xml -w --cover-package=noseselecttests noseselecttests/tests.py || true'
+                        
                     }
                 }
                 step([
                     $class: 'JUnitResultArchiver',
-                    testResults: 'nosetests.xml'
+                    testResults: 'functional_tests/nosetests.xml'
                 ])
                 step([
                     $class: 'CoberturaPublisher',
                     coberturaReportFile: 'noseselecttest/coverage.xml'
                 ])
-                archiveArtifacts 'nosetests.xml'
+                archiveArtifacts 'functional_tests/nosetests.xml'
                 archiveArtifacts 'noseselecttest/coverage.xml'
             }
         }
