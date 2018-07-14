@@ -1,0 +1,11 @@
+FROM centos:7
+
+# Install Python and Node.js
+RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm epel-release
+RUN yum install -y wget unzip iproute python36u python36u-libs python36u-devel python36u-pip nodejs npm java
+
+# Install tools
+RUN pip3.6 install pyyaml boto3
+RUN pip3.6 install flake8 nose coverage
+
+ENV EXEC_ENV=TEXT
