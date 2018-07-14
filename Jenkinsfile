@@ -50,10 +50,10 @@ pipeline {
                 ])
                 step([
                     $class: 'CoberturaPublisher',
-                    coberturaReportFile: 'noseselecttest/coverage.xml'
+                    coberturaReportFile: 'coverage.xml'
                 ])
-                archiveArtifacts 'functional_tests/nosetests.xml'
-                archiveArtifacts 'noseselecttest/coverage.xml'
+                archiveArtifacts 'nosetests.xml'
+                archiveArtifacts 'coverage.xml'
             }
         }
 
