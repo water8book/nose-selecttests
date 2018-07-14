@@ -38,7 +38,7 @@ pipeline {
             steps {
                 script {
                     dir('.') {
-                        sh 'nosetests -v --with-xunit --with-coverage --cover-inclusive --cover-erase --cover-tests --cover-branches  --cover-xml --cover-package=functional_tests,noseselecttests -w test || true'
+                        sh 'nosetests -v --with-xunit --with-coverage --cover-inclusive --cover-erase --cover-tests --cover-branches  --cover-xml --cover-package=functional_tests,noseselecttests -w || true'
                     }
                 }
                 step([
