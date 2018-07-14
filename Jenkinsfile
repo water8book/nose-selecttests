@@ -40,7 +40,7 @@ pipeline {
                     dir('.') {
                         sh 'ls -lrt'
                         sh 'pwd'
-                        sh 'nosetests -v --with-xunit --with-coverage --cover-tests  --cover-inclusive --cover-branches --cover-xml -w --cover-package=noseselecttests noseselecttests/tests.py || true'
+                        sh 'nosetests -v --with-coverage --cover-tests --cover-branches --cover-package=noseselecttests noseselecttests/tests.py || true'
                         
                     }
                 }
