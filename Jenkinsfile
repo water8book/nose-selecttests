@@ -46,7 +46,7 @@ pipeline {
                 }
                 step([
                     $class: 'JUnitResultArchiver',
-                    testResults: 'functional_tests/nosetests.xml'
+                    testResults: 'nosetests.xml'
                 ])
                 step([
                     $class: 'CoberturaPublisher',
