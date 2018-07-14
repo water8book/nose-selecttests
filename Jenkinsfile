@@ -47,7 +47,14 @@ pipeline {
                 ])
                 step([
                     $class: 'CoberturaPublisher',
-                    coberturaReportFile: 'coverage.xml'
+                    autoUpdateHealth: false,
+                    autoUpdateStability: false,
+                    coberturaReportFile: 'coverage.xml',
+                    failUnhealthy: false,
+                    failUnstable: false,
+                    maxNumberOfBuilds: 0,
+                    onlyStable: false,
+                    zoomCoverageChart: false
                 ])
                 archiveArtifacts 'nosetests.xml'
                 archiveArtifacts 'coverage.xml'
