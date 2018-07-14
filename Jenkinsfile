@@ -38,6 +38,8 @@ pipeline {
             steps {
                 script {
                     dir('.') {
+                        sh 'ls -lrt'
+                        sh 'pwd'
                         sh 'nosetests -v --with-xunit --with-coverage --cover-tests  --cover-inclusive --cover-branches --cover-xml -w --cover-package=noseselecttests noseselecttests/tests.py || true'
                         
                     }
