@@ -37,7 +37,7 @@ pipeline {
         stage('ユニットテスト') {
             steps {
                 script {
-                    dir('functional_tests') {
+                    dir('.') {
                         sh 'nosetests -v --with-xunit --with-coverage --cover-tests  --cover-inclusive --cover-branches --cover-xml -w --cover-package=noseselecttests noseselecttests/tests.py || true'
                         
                     }
