@@ -6,8 +6,8 @@ pipeline {
 
     agent {
         dockerfile {
-            filename '../workspace@script/Dockerfile.build'
-            dir '../workspace@script'
+            filename 'Dockerfile.build'
+            dir '.'
             label env.docker_image_name
         }
     }
