@@ -1,11 +1,13 @@
 pipeline {
-
     environment {
         docker_image_name = "python3-unittests"
+        HTTP_PROXY = "${params.HTTP_PROXY}"
+        JENKINS_USER_ID = "${params.JENKINS_USER_ID}"
+        JENKINS_GROUP_ID = "${params.JENKINS_GROUP_ID}"
     }
-
     agent {
         dockerfile {
+            additionalBuildArgs '--build-arg "JENKINS_USER_ID=${JENKINS_USER_ID}" --build-arg "JENKINS_GROUP_ID=${JENKINS_GROUP_ID}" --build-arg "http_proxy=${HTTP_PROXY}" --build-arg "https_proxy=${HTTP_PROXY}"'
             filename 'Dockerfile.build'
             dir '.'
             label env.docker_image_name
@@ -20,7 +22,7 @@ pipeline {
                     'Pep8': {
                         dir('.') {
                             script {
-                                sh 'flake8 . --select=E101,E113,E125,E129,E304,E7,F4,F8,N8 --max-line-length=120 || true'
+                                sh 'pep8 . --exclude=**/test*.py |true'
                             }
                             step([
                                 $class: 'WarningsPublisher',
@@ -62,11 +64,4 @@ pipeline {
         }
 
     }
-    // post {
-    //     always {
-    //         script {
-    //             sh "docker rmi ${env.docker_image_name}"
-    //         }
-    //     }
-    // }
 }

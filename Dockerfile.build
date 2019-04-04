@@ -1,11 +1,38 @@
 FROM centos:7
 
+ARG JENKINS_USER_ID
+ARG JENKINS_GROUP_ID
+
 # Install Python and Node.js
 RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm epel-release
-RUN yum install -y wget unzip iproute python36u python36u-libs python36u-devel python36u-pip nodejs npm java
+RUN yum install -y iproute \
+                   java \
+                   nodejs \
+                   npm \
+                   python36u \
+                   python36u-libs \
+                   python36u-devel \
+                   python36u-pip \
+                   sudo \
+                   unzip \
+                   wget
+
+RUN sed -i -e 's/^#\s%wheel\s*ALL=(ALL)\s*ALL$/%wheel\tALL=(ALL)\tALL/g' /etc/sudoers
+RUN sed -i -e 's/^#\s%wheel\s*ALL=(ALL)\s*NOPASSWD: ALL$/jenkins\tALL=(ALL)\tNOPASSWD: ALL/g' /etc/sudoers
+
+# 実行するJenkinsユーザIDおよびグループIDと一致させること
+RUN groupadd -g $JENKINS_GROUP_ID jenkins
+RUN useradd -u $JENKINS_USER_ID -g $JENKINS_GROUP_ID jenkins
+RUN usermod -aG wheel jenkins
 
 # Install tools
-RUN pip3.6 install pyyaml boto3
-RUN pip3.6 install flake8 nose coverage
+RUN pip3.6 install boto3 \
+                   coverage \
+                   flake8 \
+                   nose \
+                   pep8 \
+                   pyyaml
+
+USER jenkins
 
 ENV EXEC_ENV=TEXT
