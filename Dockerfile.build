@@ -2,6 +2,7 @@ FROM centos:7
 
 ARG JENKINS_USER_ID
 ARG JENKINS_GROUP_ID
+RUN echo "JENKINS_GROUP_ID:" $JENKINS_GROUP_ID ", JENKINS_USER_ID:" $JENKINS_USER_ID
 
 # Install Python and Node.js
 RUN yum install -y https://centos7.iuscommunity.org/ius-release.rpm epel-release
